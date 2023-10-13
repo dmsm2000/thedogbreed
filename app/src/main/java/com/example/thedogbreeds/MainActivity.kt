@@ -1,47 +1,30 @@
 package com.example.thedogbreeds
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.LaunchedEffect
 import com.example.thedogbreeds.ui.theme.TheDogBreedsTheme
+import com.example.thedogbreeds.viewmodel.DogBreedViewModel
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: DogBreedViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             TheDogBreedsTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Text(text = "API KEY:")
-                    Text(text = BuildConfig.API_KEY)
-                }
+                Test(viewModel)
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TheDogBreedsTheme {
-        Greeting("Android")
-    }
+private fun Test(viewModel: DogBreedViewModel) {
+    viewModel.fetchDogBreeds()
 }
