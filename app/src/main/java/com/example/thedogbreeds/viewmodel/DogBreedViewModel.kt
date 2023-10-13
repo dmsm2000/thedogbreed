@@ -1,6 +1,8 @@
 package com.example.thedogbreeds.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +11,7 @@ import com.example.thedogbreeds.data.DogBreedRepository
 import com.example.thedogbreeds.model.DogBreed
 import kotlinx.coroutines.launch
 
-class DogBreedViewModel: ViewModel() {
+class DogBreedViewModel : ViewModel() {
     private val repository = DogBreedRepository()
 
     private val _dogBreeds = MutableLiveData<List<DogBreed>>()
@@ -20,7 +22,6 @@ class DogBreedViewModel: ViewModel() {
             try {
                 val dogBreeds = repository.getDogBreeds()
                 _dogBreeds.value = dogBreeds
-                Log.d("David Marques", _dogBreeds.value.toString())
             } catch (e: Exception) {
                 Log.d("David Marques", e.message.toString())
             }
