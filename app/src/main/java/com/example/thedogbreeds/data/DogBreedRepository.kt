@@ -6,7 +6,7 @@ import com.example.thedogbreeds.services.RetrofitInstance
 class DogBreedRepository {
     private val dogBreedService = RetrofitInstance.dogBreedService
 
-    suspend fun getDogBreeds(): List<DogBreed> {
-        return dogBreedService.getDogBreeds()
+    suspend fun getDogBreeds(limit: Int, page: Int): List<DogBreed> {
+        return dogBreedService.getDogBreeds(limit, page)
     }
 }
