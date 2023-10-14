@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.thedogbreeds.model.DogBreed
 import com.example.thedogbreeds.view.components.MyDetailedRow
 import com.example.thedogbreeds.view.components.MyRow
@@ -41,7 +43,7 @@ import com.example.thedogbreeds.viewmodel.DogBreedViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(viewModel: DogBreedViewModel) {
+fun SearchScreen(viewModel: DogBreedViewModel, navController: NavController) {
     val dogBreeds by viewModel.dogBreeds.observeAsState(emptyList())
     var searchQuery by remember { mutableStateOf("") }
 
@@ -66,12 +68,12 @@ fun SearchScreen(viewModel: DogBreedViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
         )
-        ListSection(dogBreeds = dogBreeds)
+        ListSection(dogBreeds = dogBreeds, navController = navController)
     }
 }
 
 @Composable
-private fun ListSection(dogBreeds: List<DogBreed>) {
+private fun ListSection(dogBreeds: List<DogBreed>, navController: NavController) {
     LazyColumn {
         itemsIndexed(dogBreeds) { _, dogBreed ->
             MyDetailedRow(
@@ -81,6 +83,9 @@ private fun ListSection(dogBreeds: List<DogBreed>) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(6.dp)
+                    .clickable {
+                        navController.navigate("detail/${dogBreed.id}")
+                    },
             )
             Divider(thickness = 0.5.dp, color = Color.LightGray)
         }

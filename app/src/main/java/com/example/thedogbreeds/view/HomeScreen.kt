@@ -1,6 +1,7 @@
 package com.example.thedogbreeds.view
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.thedogbreeds.R
 import com.example.thedogbreeds.model.DogBreed
 import com.example.thedogbreeds.view.components.MyCard
@@ -47,7 +49,7 @@ import com.example.thedogbreeds.view.components.MyRow
 import com.example.thedogbreeds.viewmodel.DogBreedViewModel
 
 @Composable
-fun HomeScreen(viewModel: DogBreedViewModel) {
+fun HomeScreen(viewModel: DogBreedViewModel, navController: NavController) {
     val dogBreeds: List<DogBreed> by viewModel.dogBreeds.observeAsState(emptyList())
     var listSection by remember { mutableStateOf(false) }
     var order by remember { mutableStateOf(false) }
@@ -107,16 +109,16 @@ fun HomeScreen(viewModel: DogBreedViewModel) {
                 }
             }
             if (!listSection) {
-                CardsSection(dogBreeds = dogBreeds)
+                CardsSection(dogBreeds = dogBreeds, navController = navController)
             } else {
-                ListSection(dogBreeds = dogBreeds)
+                ListSection(dogBreeds = dogBreeds, navController = navController)
             }
         }
     }
 }
 
 @Composable
-private fun CardsSection(dogBreeds: List<DogBreed>) {
+private fun CardsSection(dogBreeds: List<DogBreed>, navController: NavController) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -128,6 +130,9 @@ private fun CardsSection(dogBreeds: List<DogBreed>) {
                     title = dogBreed.name,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clickable {
+                            navController.navigate("detail/${dogBreed.id}")
+                        },
                 )
             }
         },
@@ -136,7 +141,7 @@ private fun CardsSection(dogBreeds: List<DogBreed>) {
 }
 
 @Composable
-private fun ListSection(dogBreeds: List<DogBreed>) {
+private fun ListSection(dogBreeds: List<DogBreed>, navController: NavController) {
     LazyColumn {
         itemsIndexed(dogBreeds) { _, dogBreed ->
             MyRow(
@@ -145,6 +150,9 @@ private fun ListSection(dogBreeds: List<DogBreed>) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(6.dp)
+                    .clickable {
+                        navController.navigate("detail/${dogBreed.id}")
+                    },
             )
             Divider(thickness = 0.5.dp, color = Color.LightGray)
         }
