@@ -57,24 +57,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-@Composable
-private fun Test(viewModel: DogBreedViewModel) {
-    val dogBreeds by viewModel.dogBreeds.observeAsState(emptyList())
-
-    LaunchedEffect(Unit) {
-        viewModel.fetchDogBreeds()
-    }
-
-    Column {
-        if (dogBreeds.isEmpty()) {
-            CircularProgressIndicator()
-        } else {
-            LazyColumn {
-                items(dogBreeds) { dogBreed ->
-                    Log.d("David Marques", dogBreed.toString())
-                }
-            }
-        }
-    }
-}
