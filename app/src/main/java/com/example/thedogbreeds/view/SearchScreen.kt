@@ -9,7 +9,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import com.example.thedogbreeds.viewmodel.DogBreedViewModel
 
 @Composable
-fun ListScreen(viewModel: DogBreedViewModel) {
+fun SearchScreen(viewModel: DogBreedViewModel) {
     val dogBreeds by viewModel.dogBreeds.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
