@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
@@ -46,6 +46,9 @@ import com.example.thedogbreeds.viewmodel.DogBreedViewModel
 fun HomeScreen(viewModel: DogBreedViewModel) {
     val dogBreeds: List<DogBreed> by viewModel.dogBreeds.observeAsState(emptyList())
     var listSection by remember { mutableStateOf(false) }
+    var order by remember {
+        mutableStateOf(false)
+    }
 
     LaunchedEffect(Unit) {
         viewModel.fetchDogBreeds()
@@ -71,7 +74,10 @@ fun HomeScreen(viewModel: DogBreedViewModel) {
                     .padding(bottom = 10.dp, start = 20.dp, end = 10.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(imageVector = Icons.Outlined.ThumbUp, contentDescription = "")
+                    Icon(
+                        painter = painterResource(id = R.drawable.dashboard_24),
+                        contentDescription = ""
+                    )
                     Switch(
                         checked = listSection,
                         modifier = Modifier.padding(start = 6.dp, end = 6.dp),
@@ -79,13 +85,26 @@ fun HomeScreen(viewModel: DogBreedViewModel) {
                             listSection = it
                         }
                     )
-                    Icon(imageVector = Icons.Outlined.ThumbUp, contentDescription = "")
+                    Icon(imageVector = Icons.Outlined.List, contentDescription = "")
                 }
-                IconButton(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.CenterEnd)) {
-                    Icon(imageVector = Icons.Outlined.ThumbUp, contentDescription = "")
+                IconButton(onClick = {
+                    // TODO: Order the array
+                    order = !order
+                }, modifier = Modifier.align(Alignment.CenterEnd)) {
+                    if (order) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_filter_list_off_24),
+                            contentDescription = ""
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_filter_list_24),
+                            contentDescription = ""
+                        )
+                    }
                 }
             }
-            if(!listSection) {
+            if (!listSection) {
                 CardsSection(dogBreeds = dogBreeds)
             } else {
                 ListSection(dogBreeds = dogBreeds)
