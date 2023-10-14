@@ -25,24 +25,24 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.thedogbreeds.R
 
 @Composable
 fun MyCard(
-    painter: Painter,
+    imageUrl: String,
     title: String,
     modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(15.dp),
+        shape = RoundedCornerShape(5.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ) {
         Box {
-            Image(
-                painter = painter,
+            AsyncImage(
+                model = imageUrl,
                 contentDescription = title,
-                contentScale = ContentScale.Inside
             )
             Box(
                 modifier = Modifier
@@ -69,5 +69,5 @@ fun MyCard(
 @Preview
 @Composable
 fun MyCardPreview() {
-    MyCard(painterResource(id = R.drawable.dogbreed), title = "Dog Breed")
+    MyCard("https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg", title = "Dog Breed")
 }

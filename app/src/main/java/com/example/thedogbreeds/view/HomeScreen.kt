@@ -1,5 +1,6 @@
 package com.example.thedogbreeds.view
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,9 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.ThumbUp
@@ -113,19 +117,25 @@ fun HomeScreen(viewModel: DogBreedViewModel) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CardsSection(dogBreeds: List<DogBreed>) {
-    LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-        itemsIndexed(dogBreeds) { _, dogBreed ->
-            MyCard(
-                painter = painterResource(id = R.drawable.dogbreed),
-                title = dogBreed.name,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(6.dp)
-            )
-        }
-    }
+    LazyVerticalStaggeredGrid(
+        columns = StaggeredGridCells.Fixed(2),
+        verticalItemSpacing = 4.dp,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        content = {
+            itemsIndexed(dogBreeds) { _, dogBreed ->
+                MyCard(
+                    imageUrl = dogBreed.image.url,
+                    title = dogBreed.name,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
+        },
+        modifier = Modifier.fillMaxSize()
+    )
 }
 
 @Composable
@@ -133,7 +143,7 @@ fun ListSection(dogBreeds: List<DogBreed>) {
     LazyColumn {
         itemsIndexed(dogBreeds) { _, dogBreed ->
             MyRow(
-                painter = painterResource(id = R.drawable.dogbreed),
+                imageUrl = dogBreed.image.url,
                 title = dogBreed.name,
                 modifier = Modifier
                     .fillMaxWidth()

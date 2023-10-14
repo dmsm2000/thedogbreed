@@ -26,12 +26,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.thedogbreeds.R
 import com.example.thedogbreeds.ui.theme.TheDogBreedsTheme
 
 @Composable
 fun MyRow(
-    painter: Painter,
+    imageUrl: String,
     title: String,
     modifier: Modifier = Modifier
 ) {
@@ -42,8 +43,8 @@ fun MyRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Image(
-            painter = painter,
+        AsyncImage(
+            model = imageUrl,
             contentDescription = title,
             modifier = Modifier
                 .height(90.dp)
@@ -67,5 +68,5 @@ fun MyRow(
 @Preview
 @Composable
 private fun MyRowPreview() {
-    MyRow(painterResource(id = R.drawable.dogbreed), title = "Dog Breed")
+    MyRow(imageUrl = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg", title = "Dog Breed")
 }
