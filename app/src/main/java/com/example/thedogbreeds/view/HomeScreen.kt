@@ -116,7 +116,7 @@ fun HomeScreen(viewModel: DogBreedViewModel) {
 }
 
 @Composable
-fun CardsSection(dogBreeds: List<DogBreed>) {
+private fun CardsSection(dogBreeds: List<DogBreed>) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -136,7 +136,7 @@ fun CardsSection(dogBreeds: List<DogBreed>) {
 }
 
 @Composable
-fun ListSection(dogBreeds: List<DogBreed>) {
+private fun ListSection(dogBreeds: List<DogBreed>) {
     LazyColumn {
         itemsIndexed(dogBreeds) { _, dogBreed ->
             MyRow(

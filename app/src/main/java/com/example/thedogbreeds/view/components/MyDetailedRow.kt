@@ -3,6 +3,7 @@ package com.example.thedogbreeds.view.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -31,9 +33,10 @@ import com.example.thedogbreeds.R
 import com.example.thedogbreeds.ui.theme.TheDogBreedsTheme
 
 @Composable
-fun MyRow(
-    imageUrl: String,
-    title: String,
+fun MyDetailedRow(
+    breedName: String?,
+    breedGroup: String?,
+    breedOrigin: String?,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -42,25 +45,20 @@ fun MyRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        AsyncImage(
-            model = imageUrl,
-            contentDescription = title,
-            modifier = Modifier
-                .height(90.dp)
-                .width(90.dp)
-                .padding(start = 10.dp)
-        )
-        Text(
-            text = title,
-            style = TextStyle(fontWeight = FontWeight.Bold),
-            textAlign = TextAlign.Start
-        )
+        Column {
+            InfoRow("Name", breedName)
+            InfoRow("Group", breedGroup)
+            InfoRow("Origin", breedOrigin)
+        }
+
         Icon(imageVector = Icons.Outlined.KeyboardArrowRight, contentDescription = "")
     }
 }
 
-@Preview
 @Composable
-private fun MyRowPreview() {
-    MyRow(imageUrl = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg", title = "Dog Breed")
+fun InfoRow(label: String, value: String?) {
+    Row {
+        Text(text = "$label: ", style = TextStyle(fontWeight = FontWeight.Bold))
+        Text(text = value.takeUnless { it.isNullOrEmpty() } ?: "Unknown")
+    }
 }
