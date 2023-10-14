@@ -15,7 +15,7 @@ class DogBreedViewModel : ViewModel() {
     private val _dogBreeds = MutableLiveData<List<DogBreed>>()
     val dogBreeds: LiveData<List<DogBreed>> = _dogBreeds
 
-    fun fetchDogBreeds(limit: Int = 10, page: Int = 0) {
+    fun fetchDogBreeds(limit: Int = 20, page: Int = 0) {
         viewModelScope.launch {
             try {
                 val dogBreeds = repository.getDogBreeds(limit, page)

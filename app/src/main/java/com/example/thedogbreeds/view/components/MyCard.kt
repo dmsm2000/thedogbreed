@@ -35,7 +35,7 @@ fun MyCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier.height(150.dp),
         shape = RoundedCornerShape(5.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ) {
@@ -43,6 +43,8 @@ fun MyCard(
             AsyncImage(
                 model = imageUrl,
                 contentDescription = title,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
             )
             Box(
                 modifier = Modifier

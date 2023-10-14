@@ -50,9 +50,7 @@ import com.example.thedogbreeds.viewmodel.DogBreedViewModel
 fun HomeScreen(viewModel: DogBreedViewModel) {
     val dogBreeds: List<DogBreed> by viewModel.dogBreeds.observeAsState(emptyList())
     var listSection by remember { mutableStateOf(false) }
-    var order by remember {
-        mutableStateOf(false)
-    }
+    var order by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.fetchDogBreeds()
@@ -117,13 +115,12 @@ fun HomeScreen(viewModel: DogBreedViewModel) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CardsSection(dogBreeds: List<DogBreed>) {
-    LazyVerticalStaggeredGrid(
-        columns = StaggeredGridCells.Fixed(2),
-        verticalItemSpacing = 4.dp,
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
         content = {
             itemsIndexed(dogBreeds) { _, dogBreed ->
                 MyCard(
@@ -134,7 +131,7 @@ fun CardsSection(dogBreeds: List<DogBreed>) {
                 )
             }
         },
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().padding(8.dp)
     )
 }
 

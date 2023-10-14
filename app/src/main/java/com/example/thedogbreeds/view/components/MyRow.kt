@@ -38,8 +38,7 @@ fun MyRow(
 ) {
     Row(
         modifier = modifier
-            .fillMaxWidth()
-            .background(Color.White),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -53,7 +52,6 @@ fun MyRow(
         )
         Text(
             text = title,
-            color = Color.Black,
             style = TextStyle(fontWeight = FontWeight.Bold),
             textAlign = TextAlign.Start
         )
