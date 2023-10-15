@@ -7,7 +7,7 @@ data class DogBreed(
     val name: String,
     val bred_for: String,
     val breed_group: String,
-    val lifeSpan: String,
+    val life_span: String,
     val temperament: String,
     val origin: String,
     val reference_image_id: String,

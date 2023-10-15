@@ -1,6 +1,7 @@
 package com.example.thedogbreeds.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Icon
@@ -52,40 +56,48 @@ fun DogBreedDetailScreen(dogBreed: DogBreed, navController: NavHostController) {
                     }) {
                     Icon(
                         imageVector = Icons.Outlined.ArrowBack,
-                        contentDescription = "Back"
+                        contentDescription = "Back",
+                        tint = Color.White
                     )
                 }
             }
         }
 
         Column(
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(20.dp)
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.SpaceAround,
         ) {
-            TableRow("Weight", dogBreed.weight.metric?: "Unknown")
-            TableRow("Height", dogBreed.height.metric?: "Unknown")
-            TableRow("Bred For", dogBreed.bred_for?: "Unknown")
-            TableRow("Breed Group", dogBreed.breed_group?: "Unknown")
-            TableRow("Life Span", dogBreed.lifeSpan?: "Unknown")
-            TableRow("Temperament", dogBreed.temperament?: "Unknown")
-            TableRow("Origin", dogBreed.origin?: "Unknown")
+            TableRow("Weight", dogBreed.weight.metric)
+            TableRow("Height", dogBreed.height.metric)
+            TableRow("Bred For", dogBreed.bred_for)
+            TableRow("Breed Group", dogBreed.breed_group)
+            TableRow("Life Span", dogBreed.life_span)
+            TableRow("Temperament", dogBreed.temperament)
+            TableRow("Origin", dogBreed.origin)
         }
     }
 }
 
 @Composable
-fun TableRow(label: String, value: String) {
+fun TableRow(label: String, value: String?) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(20.dp),
+
     ) {
         Text(
             text = label,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
-                .width(120.dp)
+                .fillMaxWidth(0.5f)
         )
-        Text(text = value)
+        if(value.isNullOrEmpty()) {
+            Text(text = "Unknown")
+        } else {
+            Text(text = value)
+        }
     }
 }
