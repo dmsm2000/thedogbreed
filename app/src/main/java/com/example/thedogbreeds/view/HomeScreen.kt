@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
@@ -47,12 +49,12 @@ import com.example.thedogbreeds.viewmodel.DogBreedViewModel
 @Composable
 fun HomeScreen(viewModel: DogBreedViewModel, navController: NavHostController) {
     val dogBreeds: List<DogBreed> by viewModel.dogBreeds.observeAsState(emptyList())
+
     var listSection by remember { mutableStateOf(false) }
     var order by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        viewModel.setBottomBarVisible(true)
-        viewModel.fetchDogBreeds()
+        viewModel.fetchDogBreeds(page = viewModel.page.value)
     }
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -105,6 +107,29 @@ fun HomeScreen(viewModel: DogBreedViewModel, navController: NavHostController) {
                     }
                 }
             }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                IconButton(onClick = {
+                    if(viewModel.page.value > 0) {
+                        viewModel.page.value-= 1
+                        viewModel.fetchDogBreeds(page = viewModel.page.value)
+                    }
+                }) {
+                    Icon(Icons.Outlined.ArrowBack, "")
+                }
+                Text(text = viewModel.page.value.toString())
+                IconButton(onClick = {
+                    if(viewModel.page.value < 17) {
+                        viewModel.page.value+= 1
+                        viewModel.fetchDogBreeds(page = viewModel.page.value)
+                    }
+                }) {
+                    Icon(Icons.Outlined.ArrowForward, "")
+                }
+            }
             if (!listSection) {
                 CardsSection(dogBreeds = dogBreeds, navController = navController)
             } else {
@@ -133,7 +158,9 @@ private fun CardsSection(dogBreeds: List<DogBreed>, navController: NavController
                 )
             }
         },
-        modifier = Modifier.fillMaxSize().padding(8.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp)
     )
 }
 

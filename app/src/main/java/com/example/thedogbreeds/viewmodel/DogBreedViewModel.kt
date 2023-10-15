@@ -1,7 +1,10 @@
 package com.example.thedogbreeds.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,8 +19,9 @@ class DogBreedViewModel : ViewModel() {
     private val _dogBreeds = MutableLiveData<List<DogBreed>>()
     val dogBreeds: LiveData<List<DogBreed>> = _dogBreeds
     val bottomBarVisible = mutableStateOf(true)
+    var page = mutableStateOf(0)
 
-    fun fetchDogBreeds(limit: Int = 20, page: Int = 0) {
+    fun fetchDogBreeds(limit: Int = 10, page: Int) {
         viewModelScope.launch {
             try {
                 val dogBreeds = repository.getDogBreeds(limit, page)
