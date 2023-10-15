@@ -1,6 +1,5 @@
 package com.example.thedogbreeds.view
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,12 +13,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.List
-import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -42,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.thedogbreeds.R
 import com.example.thedogbreeds.model.DogBreed
 import com.example.thedogbreeds.view.components.MyCard
@@ -49,12 +45,13 @@ import com.example.thedogbreeds.view.components.MyRow
 import com.example.thedogbreeds.viewmodel.DogBreedViewModel
 
 @Composable
-fun HomeScreen(viewModel: DogBreedViewModel, navController: NavController) {
+fun HomeScreen(viewModel: DogBreedViewModel, navController: NavHostController) {
     val dogBreeds: List<DogBreed> by viewModel.dogBreeds.observeAsState(emptyList())
     var listSection by remember { mutableStateOf(false) }
     var order by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
+        viewModel.setBottomBarVisible(true)
         viewModel.fetchDogBreeds()
     }
     Column(

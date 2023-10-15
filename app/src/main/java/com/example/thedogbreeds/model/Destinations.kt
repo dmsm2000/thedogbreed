@@ -21,4 +21,8 @@ sealed class Destinations(
         title = "Search",
         icon = Icons.Outlined.Search
     )
+
+    object DogBreedDetailsScreen : Destinations (
+        route = "detail"
+    )
 }

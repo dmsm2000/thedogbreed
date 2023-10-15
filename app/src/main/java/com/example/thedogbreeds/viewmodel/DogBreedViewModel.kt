@@ -1,6 +1,7 @@
 package com.example.thedogbreeds.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ class DogBreedViewModel : ViewModel() {
 
     private val _dogBreeds = MutableLiveData<List<DogBreed>>()
     val dogBreeds: LiveData<List<DogBreed>> = _dogBreeds
+    val bottomBarVisible = mutableStateOf(true)
 
     fun fetchDogBreeds(limit: Int = 20, page: Int = 0) {
         viewModelScope.launch {
@@ -24,5 +26,13 @@ class DogBreedViewModel : ViewModel() {
                 Log.d("David Marques", e.message.toString())
             }
         }
+    }
+
+    fun getDogBreedById(id: Int): DogBreed? {
+        return _dogBreeds.value?.find { it.id == id }
+    }
+
+    fun setBottomBarVisible(state: Boolean) {
+        bottomBarVisible.value = state
     }
 }

@@ -1,27 +1,15 @@
 package com.example.thedogbreeds.view
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.List
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -36,14 +24,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.thedogbreeds.model.Destinations
 import com.example.thedogbreeds.model.DogBreed
 import com.example.thedogbreeds.view.components.MyDetailedRow
-import com.example.thedogbreeds.view.components.MyRow
 import com.example.thedogbreeds.viewmodel.DogBreedViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(viewModel: DogBreedViewModel, navController: NavController) {
+fun SearchScreen(viewModel: DogBreedViewModel, navController: NavHostController) {
     val dogBreeds by viewModel.dogBreeds.observeAsState(emptyList())
     var searchQuery by remember { mutableStateOf("") }
 
@@ -84,7 +73,7 @@ private fun ListSection(dogBreeds: List<DogBreed>, navController: NavController)
                     .fillMaxWidth()
                     .padding(6.dp)
                     .clickable {
-                        navController.navigate("detail/${dogBreed.id}")
+                        navController.navigate(Destinations.DogBreedDetailsScreen.route + "/${dogBreed.id}")
                     },
             )
             Divider(thickness = 0.5.dp, color = Color.LightGray)
