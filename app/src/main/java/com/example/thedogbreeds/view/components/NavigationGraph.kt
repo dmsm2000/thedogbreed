@@ -1,5 +1,6 @@
 package com.example.thedogbreeds.view.components
 
+import android.app.Activity
 import androidx.compose.runtime.Composable
 import com.example.thedogbreeds.model.Destinations
 import androidx.navigation.NavHostController

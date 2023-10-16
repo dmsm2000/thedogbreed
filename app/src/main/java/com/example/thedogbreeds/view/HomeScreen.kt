@@ -114,8 +114,8 @@ fun HomeScreen(viewModel: DogBreedViewModel, navController: NavHostController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(onClick = {
-                    if(viewModel.page.value > 0) {
-                        viewModel.page.value-= 1
+                    if (viewModel.page.value > 0) {
+                        viewModel.page.value -= 1
                         viewModel.fetchDogBreeds(page = viewModel.page.value)
                     }
                 }) {
@@ -123,8 +123,8 @@ fun HomeScreen(viewModel: DogBreedViewModel, navController: NavHostController) {
                 }
                 Text(text = viewModel.page.value.toString())
                 IconButton(onClick = {
-                    if(viewModel.page.value < 17) {
-                        viewModel.page.value+= 1
+                    if (viewModel.page.value < 17) {
+                        viewModel.page.value += 1
                         viewModel.fetchDogBreeds(page = viewModel.page.value)
                     }
                 }) {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TheDogBreeds</string>
+    <string name="home_title">Há Muitos de Nós!</string>
+    <string name="search">Procurar</string>
+    <string name="weight">Peso</string>
+    <string name="height">Altura</string>
+    <string name="breed_for">Criada para</string>
+    <string name="breed_group">Grupo da raça</string>
+    <string name="life_span">Expectativa de vida</string>
+    <string name="temperament">Temperamento</string>
+    <string name="origin">Origem</string>
+    <string name="unknown">Desconhecido</string>
+</resources>
