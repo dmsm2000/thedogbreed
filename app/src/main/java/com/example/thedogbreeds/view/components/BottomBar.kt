@@ -32,9 +32,6 @@ fun BottomBar(
             screens.forEach { screen ->
 
                 NavigationBarItem(
-                    label = {
-                        Text(text = screen.title!!)
-                    },
                     icon = {
                         Icon(imageVector = screen.icon!!, contentDescription = "")
                     },

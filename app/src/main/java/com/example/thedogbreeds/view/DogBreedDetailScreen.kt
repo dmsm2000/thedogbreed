@@ -23,11 +23,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.thedogbreeds.model.DogBreed
 import com.example.thedogbreeds.view.components.MyCard
+import com.example.thedogbreeds.R
 
 @Composable
 fun DogBreedDetailScreen(dogBreed: DogBreed, navController: NavHostController) {
@@ -70,13 +72,13 @@ fun DogBreedDetailScreen(dogBreed: DogBreed, navController: NavHostController) {
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.SpaceAround,
         ) {
-            TableRow("Weight", dogBreed.weight.metric)
-            TableRow("Height", dogBreed.height.metric)
-            TableRow("Bred For", dogBreed.bred_for)
-            TableRow("Breed Group", dogBreed.breed_group)
-            TableRow("Life Span", dogBreed.life_span)
-            TableRow("Temperament", dogBreed.temperament)
-            TableRow("Origin", dogBreed.origin)
+            TableRow(stringResource(id = R.string.weight), dogBreed.weight.metric)
+            TableRow(stringResource(id = R.string.height), dogBreed.height.metric)
+            TableRow(stringResource(id = R.string.breed_for), dogBreed.bred_for)
+            TableRow(stringResource(id = R.string.breed_group), dogBreed.breed_group)
+            TableRow(stringResource(id = R.string.life_span), dogBreed.life_span)
+            TableRow(stringResource(id = R.string.temperament), dogBreed.temperament)
+            TableRow(stringResource(id = R.string.origin), dogBreed.origin)
         }
     }
 }
@@ -95,7 +97,7 @@ fun TableRow(label: String, value: String?) {
                 .fillMaxWidth(0.5f)
         )
         if(value.isNullOrEmpty()) {
-            Text(text = "Unknown")
+            Text(text = stringResource(id = R.string.unknown))
         } else {
             Text(text = value)
         }

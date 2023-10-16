@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -28,6 +29,7 @@ import com.example.thedogbreeds.model.Destinations
 import com.example.thedogbreeds.model.DogBreed
 import com.example.thedogbreeds.view.components.MyDetailedRow
 import com.example.thedogbreeds.viewmodel.DogBreedViewModel
+import com.example.thedogbreeds.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +38,9 @@ fun SearchScreen(viewModel: DogBreedViewModel, navController: NavHostController)
     var searchQuery by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -46,7 +50,7 @@ fun SearchScreen(viewModel: DogBreedViewModel, navController: NavHostController)
                 searchQuery = it
             },
             label = {
-                Text("Search")
+                Text(stringResource(id = R.string.search))
             },
             singleLine = true,
             modifier = Modifier

@@ -12,13 +12,11 @@ sealed class Destinations(
 ) {
     object HomeScreen : Destinations(
         route = "home_screen",
-        title = "Home",
         icon = Icons.Outlined.Home
     )
 
     object SearchScreen : Destinations(
         route = "search_screen",
-        title = "Search",
         icon = Icons.Outlined.Search
     )
 
