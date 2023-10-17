@@ -10,4 +10,7 @@
     <string name="temperament">Temperament</string>
     <string name="origin">Origin</string>
     <string name="unknown">Unknown</string>
+    <string name="dialog_title">Error!</string>
+    <string name="dialog_text">There was an error fetching the data, go to the offline version.</string>
+    <string name="ok" translatable="false">Ok</string>
 </resources>

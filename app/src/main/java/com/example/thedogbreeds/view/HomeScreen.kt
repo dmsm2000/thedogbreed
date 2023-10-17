@@ -18,6 +18,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.List
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -103,7 +105,28 @@ fun HomeScreen(viewModel: DogBreedsViewModel, navController: NavHostController) 
                 Icon(Icons.Outlined.ArrowForward, "")
             }
         }
-        if (viewModel.fetchingDogBreeds.value) {
+        if (viewModel.showErrorDialog.value) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxHeight()
+            ) {
+                AlertDialog(
+                    title = { Text(text = stringResource(id = R.string.dialog_title)) },
+                    text = { Text(text = stringResource(id = R.string.dialog_text)) },
+                    onDismissRequest = {
+                    viewModel.showErrorDialog.value = false
+                },
+                    confirmButton = {
+                        Button(onClick = {
+                            // TODO: Take me to the offline app
+                            viewModel.showErrorDialog.value = false
+                        }) {
+                            Text(text = stringResource(id = R.string.ok))
+                        }
+                    })
+            }
+        } else if (viewModel.fetchingDogBreeds.value) {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,

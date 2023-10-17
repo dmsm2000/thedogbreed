@@ -11,4 +11,6 @@
     <string name="temperament">Temperamento</string>
     <string name="origin">Origem</string>
     <string name="unknown">Desconhecido</string>
+    <string name="dialog_title">Erro!</string>
+    <string name="dialog_text">Surgiu um problema ao carregar a informação, será reencaminhado para a versão ofline.</string>
 </resources>

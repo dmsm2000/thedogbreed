@@ -29,6 +29,8 @@ class DogBreedsViewModel : ViewModel() {
     var searchQuery = mutableStateOf("")
     var order = mutableStateOf(false)
 
+    var showErrorDialog = mutableStateOf(false)
+
     init {
         fetchDogBreeds(true)
         getAllDogBreeds()
@@ -45,6 +47,7 @@ class DogBreedsViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 Log.d("David Marques", e.message.toString())
+                showErrorDialog.value = true
             }
             delay(1000)
             fetchingDogBreeds.value = false
@@ -62,6 +65,7 @@ class DogBreedsViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 Log.d("David Marques", e.message.toString())
+                showErrorDialog.value = true
             }
             delay(1000)
             fetchingDogBreeds.value = false
