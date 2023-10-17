@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.thedogbreeds.view.DogBreedDetailScreen
+import com.example.thedogbreeds.view.DogBreedOfflineScreen
 import com.example.thedogbreeds.view.HomeScreen
 import com.example.thedogbreeds.view.SearchScreen
 import com.example.thedogbreeds.viewmodel.DogBreedsViewModel
@@ -24,6 +25,10 @@ fun NavigationGraph(viewModel: DogBreedsViewModel, navController: NavHostControl
         composable(Destinations.DogBreedDetailsScreen.route) {
             viewModel.setBottomBarVisible(false)
             DogBreedDetailScreen(viewModel, navController)
+        }
+        composable(Destinations.OfflineScreen.route) {
+            viewModel.setBottomBarVisible(false)
+            DogBreedOfflineScreen(viewModel)
         }
     }
 }

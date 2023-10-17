@@ -15,10 +15,13 @@ import com.example.thedogbreeds.ui.theme.TheDogBreedsTheme
 import com.example.thedogbreeds.view.components.BottomBar
 import com.example.thedogbreeds.view.components.NavigationGraph
 import com.example.thedogbreeds.viewmodel.DogBreedsViewModel
+import com.example.thedogbreeds.viewmodel.DogBreedsViewModelFactory
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: DogBreedsViewModel by viewModels()
+    private val viewModel: DogBreedsViewModel by viewModels {
+        DogBreedsViewModelFactory(application)
+    }
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {

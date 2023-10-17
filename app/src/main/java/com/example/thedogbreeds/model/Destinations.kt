@@ -23,4 +23,8 @@ sealed class Destinations(
     object DogBreedDetailsScreen : Destinations (
         route = "detail"
     )
+
+    object OfflineScreen : Destinations (
+        route = "detail"
+    )
 }

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -50,7 +51,8 @@ fun DogBreedDetailScreen(viewModel: DogBreedsViewModel, navController: NavHostCo
                                 Color.Transparent
                             ),
                         ),
-                    )
+                    ),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(
                     onClick = {
@@ -58,6 +60,16 @@ fun DogBreedDetailScreen(viewModel: DogBreedsViewModel, navController: NavHostCo
                     }) {
                     Icon(
                         imageVector = Icons.Outlined.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.White
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        viewModel.saveDogBreed(dogBreed!!)
+                    }) {
+                    Icon(
+                        imageVector = Icons.Outlined.Add,
                         contentDescription = "Back",
                         tint = Color.White
                     )
@@ -96,7 +108,7 @@ fun TableRow(label: String, value: String?) {
             modifier = Modifier
                 .fillMaxWidth(0.5f)
         )
-        if(value.isNullOrEmpty()) {
+        if (value.isNullOrEmpty()) {
             Text(text = stringResource(id = R.string.unknown))
         } else {
             Text(text = value)

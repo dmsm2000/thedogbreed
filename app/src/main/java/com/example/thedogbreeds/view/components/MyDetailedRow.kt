@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -46,9 +47,9 @@ fun MyDetailedRow(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
-            InfoRow("Name", breedName)
-            InfoRow("Group", breedGroup)
-            InfoRow("Origin", breedOrigin)
+            InfoRow(stringResource(id = R.string.name), breedName)
+            InfoRow(stringResource(id = R.string.breed_group), breedGroup)
+            InfoRow(stringResource(id = R.string.origin), breedOrigin)
         }
 
         Icon(imageVector = Icons.Outlined.KeyboardArrowRight, contentDescription = "")

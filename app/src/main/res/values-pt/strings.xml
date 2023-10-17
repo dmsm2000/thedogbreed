@@ -3,6 +3,7 @@
     <string name="app_name">TheDogBreeds</string>
     <string name="home_title">Há Muitos de Nós!</string>
     <string name="search">Procurar</string>
+    <string name="name">Nome</string>
     <string name="weight">Peso</string>
     <string name="height">Altura</string>
     <string name="breed_for">Criada para</string>
@@ -11,6 +12,7 @@
     <string name="temperament">Temperamento</string>
     <string name="origin">Origem</string>
     <string name="unknown">Desconhecido</string>
+    <string name="your_favourites">Seus favoritos!</string>
     <string name="dialog_title">Erro!</string>
-    <string name="dialog_text">Surgiu um problema ao carregar a informação, será reencaminhado para a versão ofline.</string>
+    <string name="dialog_text">Surgiu um problema ao carregar a informação, será reencaminhado para a versão offline.</string>
 </resources>

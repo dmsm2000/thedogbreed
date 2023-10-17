@@ -1,5 +1,8 @@
 package com.example.thedogbreeds.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 data class DogBreed(
     val weight: Weight,
     val height: Height,

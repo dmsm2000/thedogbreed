@@ -119,8 +119,8 @@ fun HomeScreen(viewModel: DogBreedsViewModel, navController: NavHostController) 
                 },
                     confirmButton = {
                         Button(onClick = {
-                            // TODO: Take me to the offline app
                             viewModel.showErrorDialog.value = false
+                            navController.navigate(Destinations.OfflineScreen.route)
                         }) {
                             Text(text = stringResource(id = R.string.ok))
                         }
