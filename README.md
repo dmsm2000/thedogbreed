@@ -1,6 +1,6 @@
 # Thedogbreed
 
-This DogBreed app is developed in response to the challenge proposed by Sword Health for the Android Developer position. The app is designed to showcase a collection of dog breeds, allowing users to explore various breeds' details, search for specific breeds, and even save their favorite breeds locally.
+This DogBreed app is developed in response to the challenge proposed by XXXXXXX for the Android Developer position. The app is designed to showcase a collection of dog breeds, allowing users to explore various breeds' details, search for specific breeds, and even save their favorite breeds locally.
 
 # Features
 Browse a collection of dog breeds.
@@ -33,4 +33,4 @@ While the app successfully fulfills the requirements of the challenge, here are 
 - Implement testing to ensure the app's reliability and stability.
 - Enhance the user interface and add more user-friendly features.
 
-Thank you to Sword Health for the challenge opportunity. It was an exciting project to work on, and we look forward to the possibility of further collaboration.
+Thank you to XXXXXX for the challenge opportunity. It was an exciting project to work on, and we look forward to the possibility of further collaboration.
