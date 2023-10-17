@@ -25,6 +25,6 @@ sealed class Destinations(
     )
 
     object OfflineScreen : Destinations (
-        route = "detail"
+        route = "offline"
     )
 }
