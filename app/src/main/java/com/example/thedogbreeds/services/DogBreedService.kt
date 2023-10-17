@@ -6,5 +6,7 @@ import retrofit2.http.Query
 
 interface DogBreedService {
     @GET("breeds")
-    suspend fun getDogBreeds(@Query("limit") limit: Int, @Query("page") page: Int): List<DogBreed>
+    suspend fun getDogBreeds(): List<DogBreed>
+    @GET("breeds")
+    suspend fun getDogBreedsPaged(@Query("limit") limit: Int, @Query("page") page: Int): List<DogBreed>
 }

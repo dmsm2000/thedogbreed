@@ -14,11 +14,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.thedogbreeds.ui.theme.TheDogBreedsTheme
 import com.example.thedogbreeds.view.components.BottomBar
 import com.example.thedogbreeds.view.components.NavigationGraph
-import com.example.thedogbreeds.viewmodel.DogBreedViewModel
+import com.example.thedogbreeds.viewmodel.DogBreedsViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: DogBreedViewModel by viewModels()
+    private val viewModel: DogBreedsViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {

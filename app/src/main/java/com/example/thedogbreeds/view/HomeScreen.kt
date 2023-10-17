@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,9 +25,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -42,106 +41,95 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.thedogbreeds.R
+import com.example.thedogbreeds.model.Destinations
 import com.example.thedogbreeds.model.DogBreed
 import com.example.thedogbreeds.view.components.MyCard
 import com.example.thedogbreeds.view.components.MyRow
-import com.example.thedogbreeds.viewmodel.DogBreedViewModel
+import com.example.thedogbreeds.viewmodel.DogBreedsViewModel
 
 @Composable
-fun HomeScreen(viewModel: DogBreedViewModel, navController: NavHostController) {
-    val dogBreeds: List<DogBreed> by viewModel.dogBreeds.observeAsState(emptyList())
+fun HomeScreen(viewModel: DogBreedsViewModel, navController: NavHostController) {
 
-    var listSection by remember { mutableStateOf(false) }
-    var order by remember { mutableStateOf(false) }
+    val dogBreeds: List<DogBreed> by viewModel.dogBreeds
 
-    LaunchedEffect(Unit) {
-        viewModel.fetchDogBreeds(page = viewModel.page.value)
-    }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        if (dogBreeds.isEmpty()) {
-            CircularProgressIndicator()
-        } else {
-            Text(
-                text = stringResource(R.string.home_title),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 20.dp, bottom = 10.dp, start = 20.dp),
-                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 25.sp)
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 10.dp, start = 20.dp, end = 10.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.dashboard_24),
-                        contentDescription = ""
-                    )
-                    Switch(
-                        checked = listSection,
-                        modifier = Modifier.padding(start = 6.dp, end = 6.dp),
-                        onCheckedChange = {
-                            listSection = it
-                        }
-                    )
-                    Icon(imageVector = Icons.Outlined.List, contentDescription = "")
-                }
-                IconButton(onClick = {
-                    // TODO: Order the array
-                    order = !order
-                }, modifier = Modifier.align(Alignment.CenterEnd)) {
-                    if (order) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_filter_list_off_24),
-                            contentDescription = ""
-                        )
-                    } else {
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_filter_list_24),
-                            contentDescription = ""
-                        )
+
+        Text(
+            text = stringResource(R.string.home_title),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp, bottom = 10.dp, start = 20.dp),
+            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 25.sp)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 10.dp, start = 20.dp, end = 10.dp)
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    painter = painterResource(id = R.drawable.dashboard_24),
+                    contentDescription = ""
+                )
+                Switch(
+                    checked = viewModel.listSection.value,
+                    modifier = Modifier.padding(start = 6.dp, end = 6.dp),
+                    onCheckedChange = {
+                        viewModel.listSection.value = it
                     }
-                }
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                IconButton(onClick = {
-                    if (viewModel.page.value > 0) {
-                        viewModel.page.value -= 1
-                        viewModel.fetchDogBreeds(page = viewModel.page.value)
-                    }
-                }) {
-                    Icon(Icons.Outlined.ArrowBack, "")
-                }
-                Text(text = viewModel.page.value.toString())
-                IconButton(onClick = {
-                    if (viewModel.page.value < 17) {
-                        viewModel.page.value += 1
-                        viewModel.fetchDogBreeds(page = viewModel.page.value)
-                    }
-                }) {
-                    Icon(Icons.Outlined.ArrowForward, "")
-                }
-            }
-            if (!listSection) {
-                CardsSection(dogBreeds = dogBreeds, navController = navController)
-            } else {
-                ListSection(dogBreeds = dogBreeds, navController = navController)
+                )
+                Icon(imageVector = Icons.Outlined.List, contentDescription = "")
             }
         }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            IconButton(onClick = {
+                if (viewModel.page.value - 1 >= 0) {
+                    viewModel.fetchDogBreeds(false)
+                }
+            }) {
+                Icon(Icons.Outlined.ArrowBack, "")
+            }
+            IconButton(onClick = {
+                viewModel.fetchDogBreeds(true)
+            }) {
+                Icon(Icons.Outlined.ArrowForward, "")
+            }
+        }
+        if (viewModel.fetchingDogBreeds.value) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxHeight()
+            ) {
+                CircularProgressIndicator()
+            }
+        } else if (!viewModel.listSection.value) {
+            CardsSection(
+                viewModel = viewModel,
+                dogBreeds = dogBreeds,
+                navController = navController
+            )
+        } else {
+            ListSection(viewModel = viewModel, dogBreeds = dogBreeds, navController = navController)
+        }
     }
+
 }
 
 @Composable
-private fun CardsSection(dogBreeds: List<DogBreed>, navController: NavController) {
+private fun CardsSection(
+    viewModel: DogBreedsViewModel,
+    dogBreeds: List<DogBreed>,
+    navController: NavController
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -154,7 +142,8 @@ private fun CardsSection(dogBreeds: List<DogBreed>, navController: NavController
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
-                            navController.navigate("detail/${dogBreed.id}")
+                            viewModel.setDogBreed(dogBreed)
+                            navController.navigate(Destinations.DogBreedDetailsScreen.route)
                         },
                 )
             }
@@ -166,7 +155,11 @@ private fun CardsSection(dogBreeds: List<DogBreed>, navController: NavController
 }
 
 @Composable
-private fun ListSection(dogBreeds: List<DogBreed>, navController: NavController) {
+private fun ListSection(
+    viewModel: DogBreedsViewModel,
+    dogBreeds: List<DogBreed>,
+    navController: NavController
+) {
     LazyColumn {
         itemsIndexed(dogBreeds) { _, dogBreed ->
             MyRow(
@@ -176,7 +169,8 @@ private fun ListSection(dogBreeds: List<DogBreed>, navController: NavController)
                     .fillMaxWidth()
                     .padding(6.dp)
                     .clickable {
-                        navController.navigate("detail/${dogBreed.id}")
+                        viewModel.setDogBreed(dogBreed)
+                        navController.navigate(Destinations.DogBreedDetailsScreen.route)
                     },
             )
             Divider(thickness = 0.5.dp, color = Color.LightGray)
